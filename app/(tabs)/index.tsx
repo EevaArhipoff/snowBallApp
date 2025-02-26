@@ -1,54 +1,47 @@
 import { Image, StyleSheet, Platform } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
+import { SnowBallRolling } from '@/components/SnowBallRolling';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import CustomButton from '@/components/CustomButton';
 
 export default function HomeScreen() {
+
+  const testi = (message: string) => {
+    setTimeout(() => {
+      console.log('testiFunktio kuittaa.')
+      window.alert('Testifunktiosta terve')
+    }, 100)
+  }
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/gude.png')}
+          style={styles.logo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText type="title">Tervetuloa vyöryttämään velkoja!</ThemedText>
+        <SnowBallRolling />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
+        <ThemedText type="subtitle">Velkojen yhteismäärä:</ThemedText>
+        <ThemedText type="defaultSemiBold">12 345€</ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
+        <ThemedText type="subtitle">Seuraavan maksu:</ThemedText>
+        <ThemedText>Maksu: 103€</ThemedText>
+        <ThemedText>Kohde: Pikavippi</ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+        <ThemedText type="subtitle">Tällä maksusuunnitelmalla velat saadaan kuitattua vyöryttämällä 1.3.2026</ThemedText>
+        <ThemedText>Voit kokeilla kuinka maksuaika muuttuu jos lisäät kuukausittaisen maksun määrää. Tulisko tähän nappi jolla voi kokeilla.</ThemedText>
+        <CustomButton title="Lisää 5e" onPress={() => testi("Nappia painettu!")}></CustomButton>
+        <ThemedText>Velkasi kuittaantuisi 5€ lisämaksulla 31.12.2025</ThemedText>
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -64,7 +57,7 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
+  logo: {
     height: 178,
     width: 290,
     bottom: 0,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, useColorScheme } from 'react-native';
 import { Colors } from '@/constants/Colors';
+import { FONTS } from '@/constants/constants';
 
 interface CustomButtonProps {
     title: string;
@@ -18,22 +19,21 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     title,
     onPress,
     buttonColor = { light: Colors.light.button, dark: Colors.dark.button },
-    borderColor = { light: Colors.blue.navyBlue, dark: Colors.blue.lightBlue },
-    textColor = { light: '#F8F8FF', dark: '#000003' },
+    borderColor = { light: Colors.light.buttonBorder, dark: Colors.dark.buttonBorder },
+    textColor = { light: '#191970', dark: '#000003' },
     width = 200,
     height = 50,
     borderRadius = 25,
     fontSize = 18,
 }) => {
-    const colorScheme = useColorScheme();
-    const backgroundColor = buttonColor[colorScheme || 'light'];
-    const border = borderColor[colorScheme || 'light'];
-    const text = textColor[colorScheme || 'light'];
+    const colorScheme = useColorScheme()
+    const backgroundColor = buttonColor[colorScheme || 'light']
+    const border = borderColor[colorScheme || 'light']
+    const text = textColor[colorScheme || 'light']
     return (
         <TouchableOpacity
             style={[styles.button, { backgroundColor: backgroundColor, borderColor: border, width, height, borderRadius }]}
-            onPress={onPress}
-        >
+            onPress={onPress} >
             <Text style={[styles.text, { color: text, fontSize }]}>{title}</Text>
         </TouchableOpacity>
     );
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
     },
     text: {
-        fontWeight: 'bold',
+        fontFamily: FONTS.button,
     },
 });
 

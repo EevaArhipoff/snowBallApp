@@ -4,57 +4,47 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withRepeat,
   withSequence,
 } from 'react-native-reanimated';
 
-
 export function SnowBallRolling() {
-  const startPosition = useSharedValue(-50)
+  // Starting position and size
+  const startPositionX = useSharedValue(0)
+  const startPositionY = useSharedValue(0)
   const ballSize = useSharedValue(20)
 
   useEffect(() => {
-    startPosition.value = withRepeat(
-      withTiming(200, { duration: 3000 }),
-      6, // Run the animation times (-1 infinite)
-      false
-    );
+    // Movenment down and across screen
+    startPositionX.value = withTiming(350, { duration: 5000 })
+    startPositionY.value = withTiming(700, { duration: 5000 })
 
-    ballSize.value = withRepeat(
-      withSequence(
-        withTiming(30, { duration: 1000 }),
-        withTiming(40, { duration: 1000 }),
-        withTiming(50, { duration: 1000 }),
-      ),
-      6,
-      false
+    // Ball size 
+    ballSize.value = withSequence(
+      withTiming(50, { duration: 1500 }),
+      withTiming(100, { duration: 1500 }),
+      withTiming(0, { duration: 1000 })
     );
   }, []);
 
-
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: startPosition.value }],
+    transform: [
+      { translateX: startPositionX.value },
+      { translateY: startPositionY.value },
+    ],
     width: ballSize.value,
     height: ballSize.value,
     borderRadius: ballSize.value / 2,
   }));
 
   return (
-    <Animated.View style={[styles.ball, animatedStyle]}>
-    </Animated.View>
+    <Animated.View style={[styles.ball, animatedStyle]} />
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 28,
-    lineHeight: 32,
-    marginTop: -6,
-  },
   ball: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    position: 'absolute',
+    zIndex: 10,
     backgroundColor: "white",
     borderWidth: 4,
     borderColor: "#ddd",

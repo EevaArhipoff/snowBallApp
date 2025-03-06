@@ -1,10 +1,11 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
+import { Image, StyleSheet, View, Text } from 'react-native';
 import { SnowBallRolling } from '@/components/SnowBallRolling';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import CustomButton from '@/components/CustomButton';
+import { Colors } from '@/constants/Colors';
+import { FONTS } from '@/constants/constants';
 
 export default function HomeScreen() {
 
@@ -17,12 +18,12 @@ export default function HomeScreen() {
 
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: Colors.light.headerBackGround, dark: Colors.dark.headerBackGround }}
       headerImage={
-        <Image
-          source={require('@/assets/images/gude.png')}
-          style={styles.logo}
-        />
+        <View style={styles.headerContainer}>
+          <Image source={require('@/assets/images/snow.jpg')} style={styles.logo} />
+          <Text style={styles.appName}>SnowBall</Text>
+        </View>
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Tervetuloa vyöryttämään velkoja!</ThemedText>
@@ -57,11 +58,23 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  logo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  headerContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  appName: {
     position: 'absolute',
+    fontSize: 40,
+    fontFamily: FONTS.title,
+    color: '1181C',
+    textAlign: 'center',
+  },
+  logo: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
 });

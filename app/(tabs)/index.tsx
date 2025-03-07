@@ -6,6 +6,9 @@ import { ThemedView } from '@/components/ThemedView';
 import CustomButton from '@/components/CustomButton';
 import { Colors } from '@/constants/Colors';
 import { FONTS } from '@/constants/constants';
+import HeaderView from '@/components/HeaderView';
+import { ExternalLink } from '@/components/ExternalLink';
+
 
 export default function HomeScreen() {
 
@@ -19,12 +22,7 @@ export default function HomeScreen() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: Colors.light.headerBackGround, dark: Colors.dark.headerBackGround }}
-      headerImage={
-        <View style={styles.headerContainer}>
-          <Image source={require('@/assets/images/snow.jpg')} style={styles.logo} />
-          <Text style={styles.appName}>SnowBall</Text>
-        </View>
-      }>
+      headerImage={<HeaderView title="SnowBall" />}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Tervetuloa vyöryttämään velkoja!</ThemedText>
         <SnowBallRolling />
@@ -44,6 +42,9 @@ export default function HomeScreen() {
         <CustomButton title="Lisää 5e" onPress={() => testi("Nappia painettu!")}></CustomButton>
         <ThemedText>Velkasi kuittaantuisi 5€ lisämaksulla 31.12.2025</ThemedText>
       </ThemedView>
+      <ExternalLink href="https://www.ramseysolutions.com/debt/how-the-debt-snowball-method-works">
+        <ThemedText>Voit lukea lisää Snowball-metodista englanniksi <ThemedText type="link">täältä</ThemedText></ThemedText>
+      </ExternalLink>
     </ParallaxScrollView>
   );
 }
@@ -57,24 +58,5 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
-  },
-  headerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  appName: {
-    position: 'absolute',
-    fontSize: 40,
-    fontFamily: FONTS.title,
-    color: '1181C',
-    textAlign: 'center',
-  },
-  logo: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
   },
 });

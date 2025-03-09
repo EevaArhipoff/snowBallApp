@@ -1,7 +1,5 @@
-import { StyleSheet, Image, Platform, View } from 'react-native';
-
+import { StyleSheet } from 'react-native';
 import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -27,7 +25,6 @@ export default function TabTwoScreen() {
         </ThemedText>
       </Collapsible>
       <Collapsible title="Lisää velka">
-        <ThemedText type="defaultSemiBold">Lisää tähän lomake</ThemedText>
         <AddDebtForm />
       </Collapsible>
     </ParallaxScrollView>

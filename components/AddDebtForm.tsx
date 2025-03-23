@@ -4,26 +4,31 @@ import { View, Text, TextInput, StyleSheet, SafeAreaView, Button } from 'react-n
 import { useForm, Controller } from 'react-hook-form';
 import CustomButton from '@/components/CustomButton';
 import { FONTS } from '@/constants/constants';
+import { useDatabase } from '@/SQL/dataBaseFunctions';
 
 
 interface formProps {
-    name: string;
-    amount: string;
-    monthlyPayment: string,
+    name: string
+    amount: string
+    monthlyPayment: string
+    onDebtAdd: () => void
 }
 
-const AddDebtForm: React.FC = () => {
+const AddDebtForm: React.FC<{ onDebtAdd: () => void }> = ({ onDebtAdd }) => {
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm<formProps>()
     const [submittedData, setSubmittedData] = useState<formProps | null>(null)
     const textColor = useThemeColor({}, 'text')
     const inputBorder = useThemeColor({}, 'button')
+    const { addDebt } = useDatabase()
 
-    const onSubmit = (data: formProps) => {
-        setSubmittedData(data);
-        reset();
+    const onSubmit = async (data: formProps) => {
+        await addDebt(data.name, parseFloat(data.amount.replace(',', '.')), parseFloat(data.monthlyPayment.replace(',', '.')))
+        setSubmittedData(data)
+        reset()
+        onDebtAdd()
+
     };
-
 
     return (
         <SafeAreaView>
@@ -62,17 +67,17 @@ const AddDebtForm: React.FC = () => {
                                 value={value}
                                 onChangeText={text => {
                                     // Only numbers and "," are allowed
-                                    let formattedText = text.replace(/[^0-9,]/g, '');
+                                    let formattedText = text.replace(/[^0-9,]/g, '')
 
                                     // Accepting only one comma
                                     const parts = formattedText.split(',');
                                     if (parts.length > 2) {
-                                        return;
+                                        return
                                     }
 
                                     // Can't start with comma
                                     if (formattedText.startsWith(',')) {
-                                        formattedText = '';
+                                        formattedText = ''
                                     }
 
                                     onChange(formattedText);
@@ -99,20 +104,20 @@ const AddDebtForm: React.FC = () => {
                                 value={value}
                                 onChangeText={text => {
                                     // Only numbers and "," are allowed
-                                    let formattedText = text.replace(/[^0-9,]/g, '');
+                                    let formattedText = text.replace(/[^0-9,]/g, '')
 
                                     // Accepting only one comma
-                                    const parts = formattedText.split(',');
+                                    const parts = formattedText.split(',')
                                     if (parts.length > 2) {
-                                        return;
+                                        return
                                     }
 
                                     // Can't start with comma
                                     if (formattedText.startsWith(',')) {
-                                        formattedText = '';
+                                        formattedText = ''
                                     }
 
-                                    onChange(formattedText);
+                                    onChange(formattedText)
                                 }}
                                 keyboardType="decimal-pad"
                             />

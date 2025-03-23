@@ -1,4 +1,5 @@
-import { Image, StyleSheet, View, Text } from 'react-native';
+import { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import { SnowBallRolling } from '@/components/SnowBallRolling';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -8,9 +9,12 @@ import { Colors } from '@/constants/Colors';
 import { FONTS } from '@/constants/constants';
 import HeaderView from '@/components/HeaderView';
 import { ExternalLink } from '@/components/ExternalLink';
+import { useDatabase } from '@/SQL/dataBaseFunctions';
 
 
 export default function HomeScreen() {
+
+  useDatabase();
 
   const testi = (message: string) => {
     setTimeout(() => {
